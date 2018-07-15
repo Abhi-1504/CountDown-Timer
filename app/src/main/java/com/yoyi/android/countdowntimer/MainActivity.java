@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     // This is test comment for new commit
     // TODO make new branch for this application
 
+    // New comment
+
     private static final String FORMAT = "%02d:%02d:%02d";
     // Creating objects and Variables to link Views and store values
     TextView timer;
