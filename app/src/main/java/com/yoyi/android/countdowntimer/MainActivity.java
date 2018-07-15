@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,23 +19,33 @@ public class MainActivity extends AppCompatActivity {
     // TODO make new branch for this application
 
     private static final String FORMAT = "%02d:%02d:%02d";
+
     // Creating objects and Variables to link Views and store values
     TextView timer;
+    TextView message;
     long timeInMilliSeconds;
+
     private EditText hour, minute, second;
     private int seconds, minutes, hours;
     private CountDownTimer counter;
-
     private boolean timerRunningCheck, firstIntialization = true;
-
     private Button startAndPause, reset;
+    private LinearLayout llUserInput;
+    private LinearLayout llChronometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        llUserInput = findViewById(R.id.llUserInput);
+        llChronometer = findViewById(R.id.llChronometer);
+
+        llUserInput.setVisibility(View.VISIBLE);
+        llChronometer.setVisibility(View.GONE);
+
         timer = findViewById(R.id.chronometer);
+        message = findViewById(R.id.txtMessage);
 
         startAndPause = findViewById(R.id.start_button);
 
@@ -65,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startTimer() {
 
-        firstTimerRunIntialization();
+        firstTimerRunInitialization();
         Log.i("timeInMilliSeconds", "" + timeInMilliSeconds);
         counter = new CountDownTimer(timeInMilliSeconds, 1000) {
             @Override
@@ -102,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
+        llUserInput.setVisibility(View.VISIBLE);
+        llChronometer.setVisibility(View.GONE);
         counter.cancel();
         timeInMilliSeconds = 0;
         timerRunningCheck = false;
@@ -117,8 +130,14 @@ public class MainActivity extends AppCompatActivity {
     /***
      * The function takes the input from the user and initialises the start time of the counter
      */
-    private void firstTimerRunIntialization() {
+    private void firstTimerRunInitialization() {
         if (firstIntialization) {
+
+            llUserInput.setVisibility(View.GONE);
+            llChronometer.setVisibility(View.VISIBLE);
+
+            message.setText("Countdown");
+
             hour = findViewById(R.id.hour_input);
 
             minute = findViewById(R.id.minute_input);
