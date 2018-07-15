@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/input_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:text="@string/input_details"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/chronometer_textsize" />
+
+    <EditText
+        android:id="@+id/hour_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_string"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:hint="@string/hours"
+        android:inputType="number"
+        android:maxLength="2"
+        android:textColorHint="@color/colorAccent" />
+
+    <EditText
+        android:id="@+id/minute_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_string"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:layout_toRightOf="@id/hour_input"
+        android:hint="@string/minutes"
+        android:inputType="number"
+        android:maxLength="2"
+        android:textColorHint="@color/colorAccent" />
+
+    <EditText
+        android:id="@+id/second_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_string"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:layout_toRightOf="@id/minute_input"
+        android:hint="@string/seconds"
+        android:inputType="number"
+        android:maxLength="2"
+        android:textColorHint="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/chronometer_spacing"
+        android:text="@string/timer_text"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/chronometer_textsize" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chronometer"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:text="@string/start"
+        android:textAllCaps="true" />
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_button"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/buttons_spacing"
+        android:text="@string/reset"
+        android:textAllCaps="true" />
+
+</RelativeLayout>

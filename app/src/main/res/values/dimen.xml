@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="chronometer_spacing">108dp</dimen>
+    <dimen name="buttons_spacing">8dp</dimen>
+    <dimen name="chronometer_textsize">28sp</dimen>
+</resources>
