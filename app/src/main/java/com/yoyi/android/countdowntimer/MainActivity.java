@@ -1,5 +1,6 @@
 package com.yoyi.android.countdowntimer;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,35 +8,50 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    // TODO make new branch for this application
 
     private static final String FORMAT = "%02d:%02d:%02d";
+
     // Creating objects and Variables to link Views and store values
     TextView timer;
+    TextView message;
     long timeInMilliSeconds;
     private EditText hour, minute, second;
     private int seconds, minutes, hours;
     private CountDownTimer counter;
-
     private boolean timerRunningCheck, firstIntialization = true;
-
     private Button startAndPause, reset;
+    private LinearLayout llUserInput;
+    private LinearLayout llChronometer;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        llUserInput = findViewById(R.id.llUserInput);
+        llChronometer = findViewById(R.id.llChronometer);
+
+        llUserInput.setVisibility(View.VISIBLE);
+        llChronometer.setVisibility(View.GONE);
+
         timer = findViewById(R.id.chronometer);
+        message = findViewById(R.id.txtMessage);
 
         startAndPause = findViewById(R.id.start_button);
 
         reset = findViewById(R.id.reset_button);
+        reset.setEnabled(false);
+
+        mp = MediaPlayer.create(this, R.raw.alert);
 
         // Setting on click listener to start/pause button object
         startAndPause.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
      * The Function instantiate the countdown timer counter object with value to start the count down from
      */
     private void startTimer() {
+        reset.setEnabled(true);
 
-        firstTimerRunIntialization();
+        firstTimerRunInitialization();
         Log.i("timeInMilliSeconds", "" + timeInMilliSeconds);
         counter = new CountDownTimer(timeInMilliSeconds, 1000) {
             @Override
@@ -79,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                startAndPause.setText(R.string.start);
-                timerRunningCheck = false;
                 timer.setText("done!");
+                startAndPause.setText(R.string.start);
+                startAndPause.setEnabled(false);
+                timerRunningCheck = false;
+                mp.start();
             }
         }.start();
 
@@ -99,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
+        startAndPause.setEnabled(true);
+        reset.setEnabled(false);
+        llUserInput.setVisibility(View.VISIBLE);
+        llChronometer.setVisibility(View.GONE);
+        message.setText("Set timer");
         counter.cancel();
         timeInMilliSeconds = 0;
         timerRunningCheck = false;
@@ -114,8 +138,14 @@ public class MainActivity extends AppCompatActivity {
     /***
      * The function takes the input from the user and initialises the start time of the counter
      */
-    private void firstTimerRunIntialization() {
+    private void firstTimerRunInitialization() {
         if (firstIntialization) {
+
+            llUserInput.setVisibility(View.GONE);
+            llChronometer.setVisibility(View.VISIBLE);
+
+            message.setText("Countdown");
+
             hour = findViewById(R.id.hour_input);
 
             minute = findViewById(R.id.minute_input);
