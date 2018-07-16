@@ -11,74 +11,89 @@
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
+
         <TextView
             android:id="@+id/txtMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set timer:"/>
+            android:text="Set timer"
+            android:textSize="20dp" />
 
         <LinearLayout
-            android:id="@+id/llUserInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/hour_input"
+            <LinearLayout
+                android:id="@+id/llUserInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/hours"
-                android:inputType="number"
-                android:maxLength="2"
-                android:textSize="@dimen/chronometer_textsize"
-                android:textColorHint="@color/colorAccent" />
+                android:layout_gravity="center"
+                android:visibility="visible">
 
-            <EditText
-                android:id="@+id/minute_input"
+                <EditText
+                    android:id="@+id/hour_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hours"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="@dimen/chronometer_textsize" />
+
+                <EditText
+                    android:id="@+id/minute_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/hour_input"
+                    android:hint="@string/minutes"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="@dimen/chronometer_textsize" />
+
+                <EditText
+                    android:id="@+id/second_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/minute_input"
+                    android:hint="@string/seconds"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="@dimen/chronometer_textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llChronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/hour_input"
-                android:hint="@string/minutes"
-                android:inputType="number"
-                android:maxLength="2"
-                android:textSize="@dimen/chronometer_textsize"
-                android:textColorHint="@color/colorAccent" />
+                android:layout_gravity="center">
 
-            <EditText
-                android:id="@+id/second_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/minute_input"
-                android:hint="@string/seconds"
-                android:inputType="number"
-                android:maxLength="2"
-                android:textSize="@dimen/chronometer_textsize"
-                android:textColorHint="@color/colorAccent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llChronometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/chronometer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/timer_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/chronometer_textsize" />
+                <TextView
+                    android:id="@+id/chronometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/timer_text"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/chronometer_textsize"
+                    android:textAlignment="center"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_below="@+id/topLinearLayout"
         android:gravity="center">
         <Button
@@ -101,5 +116,4 @@
             android:text="@string/reset"
             android:textAllCaps="true" />
     </LinearLayout>
-
 </RelativeLayout>
