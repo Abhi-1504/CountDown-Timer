@@ -7,5 +7,6 @@
     <string name="hours">hh</string>
     <string name="minutes">mm</string>
     <string name="seconds">ss</string>
+    <string name="chrono">llchrono</string>
     <string name="input_details">Enter the time here</string>
 </resources>
