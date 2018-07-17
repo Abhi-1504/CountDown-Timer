@@ -1,5 +1,6 @@
 package com.yoyi.android.countdowntimer;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Disable reset button on Create
         reset.setEnabled(false);
+
+        startAndPause.setBackgroundColor(Color.parseColor("#1c1c1c"));
+        startAndPause.setTextColor(Color.parseColor("#b8e3be"));
+
+        reset.setBackgroundColor(Color.parseColor("#272626"));
+        reset.setTextColor(Color.parseColor("#737473"));
 
 
         mTimer = new WorkTimer();

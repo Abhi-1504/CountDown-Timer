@@ -1,5 +1,6 @@
 package com.yoyi.android.countdowntimer;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -67,6 +68,8 @@ public class Timer implements TimerCalls{
                 btnStartAndPause.setEnabled(false);
                 isTimerRunning = false;
                 mp.start();
+                btnStartAndPause.setBackgroundColor(Color.parseColor("#272626"));
+                btnStartAndPause.setTextColor(Color.parseColor("#737473"));
             }
         }.start() ;
         isTimerRunning = true;

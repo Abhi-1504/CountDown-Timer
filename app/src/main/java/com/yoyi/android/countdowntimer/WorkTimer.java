@@ -39,6 +39,8 @@ public class WorkTimer extends Timer
         llChronometer.setVisibility(View.VISIBLE);
         btnReset.setEnabled(true);
         txtMessage.setText("Countdown");
+        btnReset.setBackgroundColor(Color.parseColor("#1c1c1c"));
+        btnReset.setTextColor(Color.parseColor("#b8e3be"));
         return isPause;
     }
 
@@ -52,6 +54,11 @@ public class WorkTimer extends Timer
         btnStartAndPause.setEnabled(true);
         btnStartAndPause.setText("Start");
         txtMessage.setText("Set timer");
+        btnReset.setBackgroundColor(Color.parseColor("#272626"));
+        btnReset.setTextColor(Color.parseColor("#737473"));
+
+        btnStartAndPause.setBackgroundColor(Color.parseColor("#1c1c1c"));
+        btnStartAndPause.setTextColor(Color.parseColor("#b8e3be"));
     }
 
     public void setTimer(MediaPlayer mp, EditText etxtHours, EditText etxtMinutes,
