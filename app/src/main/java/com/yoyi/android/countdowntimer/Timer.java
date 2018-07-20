@@ -17,11 +17,17 @@ public class Timer implements TimerCalls{
     protected CountDownTimer countDownTimer;
     protected boolean isTimerRunning, isFirstRun = true;
     protected MediaPlayer mp;
-    protected EditText etxtHours, etxtMinutes, etxtSeconds;
-    protected TextView txtTimer;
+    protected TextView txtTimer, etxtMinutes;
     protected Button btnStartAndPause;
     protected int workSession = 0;
     protected boolean isBreak = false;
+    protected String pomodoroSessionNumber;
+
+    protected String getPomodoroSessionNumber()
+    {
+        pomodoroSessionNumber = "Pomodoro " + (workSession+1);
+        return pomodoroSessionNumber;
+    }
 
     // Set time for one pomodoro session
     protected void setWork()
@@ -44,12 +50,10 @@ public class Timer implements TimerCalls{
 
 
     @Override
-    public void setTimer(MediaPlayer mp, EditText etxtHours, EditText etxtMinutes,
-                         EditText etxtSeconds, TextView txtTimer, Button btnStartAndPause) {
+    public void setTimer(MediaPlayer mp, TextView etxtMinutes,
+                         TextView txtTimer, Button btnStartAndPause) {
         this.mp = mp;
-        this.etxtHours = etxtHours;
         this.etxtMinutes = etxtMinutes;
-        this.etxtSeconds = etxtSeconds;
         this.txtTimer = txtTimer;
         this.btnStartAndPause = btnStartAndPause;
     }
@@ -106,10 +110,12 @@ public class Timer implements TimerCalls{
                 {
                     workSession++;
                     isBreak = true;
+                    etxtMinutes.setText(getPomodoroSessionNumber()+" Completed");
                 }
                 else
                 {
                     isBreak = false;
+                    etxtMinutes.setText(getPomodoroSessionNumber());
                 }
             }
         }.start() ;
@@ -132,60 +138,5 @@ public class Timer implements TimerCalls{
         isTimerRunning = false;
         isFirstRun = true;
         txtTimer.setText("00:00:00");
-        etxtSeconds.setText("");
-        etxtMinutes.setText("");
-        etxtHours.setText("");
-    }
-
-    private boolean onFirstRun()
-    {
-        if (isFirstRun)
-        {
-            String bufferString;
-
-            // Getting value for seconds
-            bufferString = etxtSeconds.getText().toString();
-            if (bufferString.compareTo("")==0)
-            {
-                seconds = 0;
-            }
-            else
-            {
-                seconds = Integer.parseInt(bufferString);
-            }
-
-            // Getting value for minutes
-            bufferString = etxtMinutes.getText().toString();
-            if (bufferString.compareTo("")==0)
-            {
-                minutes = 0;
-            }
-            else
-            {
-                minutes = Integer.parseInt(bufferString);
-            }
-
-            // Getting value for hours
-            bufferString = etxtHours.getText().toString();
-            if (bufferString.compareTo("")==0)
-            {
-                hours = 0;
-            }
-            else
-            {
-                hours = Integer.parseInt(bufferString);
-            }
-
-            // Setting  value to Countdown variable
-            timeInMilliSeconds = ((hours * 3600) + (minutes * 60) + seconds) * 1000;
-
-            // Setting initial run to false
-            isFirstRun = false;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

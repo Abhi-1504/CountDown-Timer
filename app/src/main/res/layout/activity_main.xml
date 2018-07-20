@@ -39,40 +39,17 @@
                 android:layout_gravity="center"
                 android:visibility="visible">
 
-                <EditText
-                    android:id="@+id/hour_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hours"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textColorHint="@color/colorAccent"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/chronometer_textsize" />
 
-                <EditText
+                <TextView
                     android:id="@+id/minute_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/hour_input"
                     android:hint="@string/minutes"
                     android:inputType="number"
-                    android:maxLength="2"
                     android:textColorHint="@color/colorAccent"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/chronometer_textsize"/>
 
-                <EditText
-                    android:id="@+id/second_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/minute_input"
-                    android:hint="@string/seconds"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textColorHint="@color/colorAccent"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/chronometer_textsize" />
             </LinearLayout>
 
             <LinearLayout

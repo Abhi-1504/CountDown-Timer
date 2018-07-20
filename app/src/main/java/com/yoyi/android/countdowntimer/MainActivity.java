@@ -18,8 +18,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     // Creating objects and Variables to link Views and store values
-    TextView timer, message, txtSessionName;
-    private EditText hour, minute, second;
+    TextView timer, message, txtSessionName ,minute;
     private Button startAndPause, reset;
     private LinearLayout llUserInput, llChronometer;
     private RelativeLayout rlBackground;
@@ -42,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
         message = findViewById(R.id.txtMessage);
         startAndPause = findViewById(R.id.start_button);
         reset = (findViewById(R.id.reset_button));
-        hour = findViewById(R.id.hour_input);
         minute = findViewById(R.id.minute_input);
-        second = findViewById(R.id.second_input);
         mp = MediaPlayer.create(this, R.raw.alert);
         txtSessionName = findViewById(R.id.sessionName);
 
@@ -67,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
         sName.add("Excel");
 
         mTimer.setList(sName);
-
-        mTimer.setTimer(mp, hour, minute, second, timer, message, startAndPause, llUserInput, llChronometer, rlBackground, reset, txtSessionName);
+        minute.setText(mTimer.getPomodoroSessionNumber());
+        message.setText("Start your work");
+        mTimer.setTimer(mp, minute, timer, message, startAndPause, llUserInput, llChronometer, rlBackground, reset, txtSessionName);
 
         // Setting on click listener to start/pause button object
         startAndPause.setOnClickListener(new View.OnClickListener() {

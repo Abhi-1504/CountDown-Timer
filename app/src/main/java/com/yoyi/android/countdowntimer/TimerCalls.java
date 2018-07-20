@@ -8,6 +8,6 @@ import android.widget.TextView;
 public interface TimerCalls {
     public int startOrPauseTimer();
     public void resetTimer();
-    public void setTimer(MediaPlayer mp, EditText etxtHours, EditText etxtMinutes, EditText etxtSeconds,
+    public void setTimer(MediaPlayer mp, TextView etxtMinutes,
                          TextView txtTimer, Button btnStartAndPause);
 }

@@ -74,13 +74,26 @@ public class WorkTimer extends Timer
 
         btnStartAndPause.setBackgroundColor(Color.parseColor("#1c1c1c"));
         btnStartAndPause.setTextColor(Color.parseColor("#b8e3be"));
+
+        if (!isBreak)
+        {
+            txtMessage.setText("Start your work");
+        }
+        else if ((workSession%4)==0 && isBreak)
+        {
+            txtMessage.setText("Take a long break");
+        }
+        else
+        {
+            txtMessage.setText("Take a break");
+        }
     }
 
-    public void setTimer(MediaPlayer mp, EditText etxtHours, EditText etxtMinutes,
-                         EditText etxtSeconds, TextView txtTimer, TextView message, Button btnStartAndPause,
+    public void setTimer(MediaPlayer mp, TextView etxtMinutes,
+                         TextView txtTimer, TextView message, Button btnStartAndPause,
                          LinearLayout llUserInput, LinearLayout llChronometer, RelativeLayout rlBackground, Button btnReset, TextView txtSessionName)
     {
-     super.setTimer(mp, etxtHours, etxtMinutes, etxtSeconds, txtTimer,
+     super.setTimer(mp, etxtMinutes, txtTimer,
              btnStartAndPause);
         this.llUserInput = llUserInput;
         this.llChronometer = llChronometer;
