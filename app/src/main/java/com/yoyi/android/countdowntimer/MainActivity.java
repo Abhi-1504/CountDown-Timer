@@ -12,17 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
     // Creating objects and Variables to link Views and store values
-    TextView timer, message;
+    TextView timer, message, txtSessionName;
     private EditText hour, minute, second;
     private Button startAndPause, reset;
     private LinearLayout llUserInput, llChronometer;
     private RelativeLayout rlBackground;
     private MediaPlayer mp;
     WorkTimer mTimer;
+    public ArrayList<String> sName = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         minute = findViewById(R.id.minute_input);
         second = findViewById(R.id.second_input);
         mp = MediaPlayer.create(this, R.raw.alert);
+        txtSessionName = findViewById(R.id.sessionName);
 
         //Disable reset button on Create
         reset.setEnabled(false);
@@ -55,7 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         mTimer = new WorkTimer();
-        mTimer.setTimer(mp, hour, minute, second, timer, message, startAndPause, llUserInput, llChronometer, rlBackground, reset);
+
+        sName.add("Udemy");
+        sName.add("Udemy");
+        sName.add("Guitar");
+        sName.add("Photoshop");
+        sName.add("Excel");
+
+        mTimer.setList(sName);
+
+        mTimer.setTimer(mp, hour, minute, second, timer, message, startAndPause, llUserInput, llChronometer, rlBackground, reset, txtSessionName);
 
         // Setting on click listener to start/pause button object
         startAndPause.setOnClickListener(new View.OnClickListener() {

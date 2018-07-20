@@ -3,6 +3,7 @@ package com.yoyi.android.countdowntimer;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class Timer implements TimerCalls{
     // Set time for one pomodoro session
     protected void setWork()
     {
-        timeInMilliSeconds = 10*1000;
+        timeInMilliSeconds = 25*60*1000;
     }
 
     // Set time for one short break
@@ -33,11 +34,11 @@ public class Timer implements TimerCalls{
     {
         if ((workSession%4)!=0)
         {
-            timeInMilliSeconds = 5*1000;
+            timeInMilliSeconds = 5*60*1000;
         }
         else
         {
-            timeInMilliSeconds = 15*1000;
+            timeInMilliSeconds = 30*60*1000;
         }
     }
 
@@ -56,6 +57,8 @@ public class Timer implements TimerCalls{
     @Override
     public int startOrPauseTimer()
     {
+        Log.e("Timer: Pomodoro", Integer.toString(workSession) );
+
         if (!isBreak)
         {
             setWork();
@@ -102,10 +105,11 @@ public class Timer implements TimerCalls{
                 if (!isBreak)
                 {
                     workSession++;
+                    isBreak = true;
                 }
                 else
                 {
-                    isBreak = true;
+                    isBreak = false;
                 }
             }
         }.start() ;
@@ -121,6 +125,10 @@ public class Timer implements TimerCalls{
     @Override
     public void resetTimer() {
         countDownTimer.cancel();
+        if (isTimerRunning)
+        {
+            countDownTimer.onFinish();
+        }
         isTimerRunning = false;
         isFirstRun = true;
         txtTimer.setText("00:00:00");

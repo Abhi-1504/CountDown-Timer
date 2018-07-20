@@ -10,13 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class WorkTimer extends Timer
 {
-    private TextView txtMessage;
+    private TextView txtMessage, txtSessionName;
     private LinearLayout llUserInput, llChronometer;
     private RelativeLayout rlBackground;
     private Button btnReset;
     private int isPause;
+    private ArrayList<String> sessionName = new ArrayList<>();
+
+    public void setList(ArrayList sessionName)
+    {
+        this.sessionName = sessionName;
+    }
 
     @Override
     public int startOrPauseTimer()
@@ -35,6 +43,12 @@ public class WorkTimer extends Timer
         else {
             return 1;
         }
+        txtSessionName.setText(sessionName.get(workSession));
+        if (!isBreak)
+        {
+            txtSessionName.setVisibility(View.VISIBLE);
+        }
+
         llUserInput.setVisibility(View.GONE);
         llChronometer.setVisibility(View.VISIBLE);
         btnReset.setEnabled(true);
@@ -48,6 +62,7 @@ public class WorkTimer extends Timer
     public void resetTimer()
     {
         super.resetTimer();
+        txtSessionName.setVisibility(View.INVISIBLE);
         llUserInput.setVisibility(View.VISIBLE);
         llChronometer.setVisibility(View.GONE);
         btnReset.setEnabled(false);
@@ -63,7 +78,7 @@ public class WorkTimer extends Timer
 
     public void setTimer(MediaPlayer mp, EditText etxtHours, EditText etxtMinutes,
                          EditText etxtSeconds, TextView txtTimer, TextView message, Button btnStartAndPause,
-                         LinearLayout llUserInput, LinearLayout llChronometer, RelativeLayout rlBackground, Button btnReset)
+                         LinearLayout llUserInput, LinearLayout llChronometer, RelativeLayout rlBackground, Button btnReset, TextView txtSessionName)
     {
      super.setTimer(mp, etxtHours, etxtMinutes, etxtSeconds, txtTimer,
              btnStartAndPause);
@@ -72,5 +87,6 @@ public class WorkTimer extends Timer
         this.rlBackground = rlBackground;
         this.btnReset = btnReset;
         this.txtMessage = message;
+        this.txtSessionName = txtSessionName;
     }
 }

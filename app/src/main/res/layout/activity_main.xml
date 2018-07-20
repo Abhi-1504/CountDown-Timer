@@ -16,8 +16,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        >
+        android:layout_centerVertical="true" >
 
         <TextView
             android:id="@+id/txtMessage"
@@ -93,6 +92,15 @@
                     android:textAlignment="center"/>
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/sessionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Session name"
+            android:textColor="#b8e3be"
+            android:visibility="invisible"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -122,4 +130,5 @@
             android:text="@string/reset"
             android:textAllCaps="true" />
     </LinearLayout>
+
 </RelativeLayout>
