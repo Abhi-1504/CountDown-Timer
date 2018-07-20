@@ -19,6 +19,27 @@ public class Timer implements TimerCalls{
     protected EditText etxtHours, etxtMinutes, etxtSeconds;
     protected TextView txtTimer;
     protected Button btnStartAndPause;
+    protected int workSession = 0;
+    protected boolean isBreak = false;
+
+    // Set time for one pomodoro session
+    protected void setWork()
+    {
+        timeInMilliSeconds = 10*1000;
+    }
+
+    // Set time for one short break
+    protected void setBreak()
+    {
+        if ((workSession%4)!=0)
+        {
+            timeInMilliSeconds = 5*1000;
+        }
+        else
+        {
+            timeInMilliSeconds = 15*1000;
+        }
+    }
 
 
     @Override
@@ -35,7 +56,15 @@ public class Timer implements TimerCalls{
     @Override
     public int startOrPauseTimer()
     {
-        onFirstRun();
+        if (!isBreak)
+        {
+            setWork();
+        }
+        else
+        {
+            setBreak();
+        }
+
         if (timeInMilliSeconds==0)
         {
             isFirstRun = true;
@@ -70,6 +99,14 @@ public class Timer implements TimerCalls{
                 mp.start();
                 btnStartAndPause.setBackgroundColor(Color.parseColor("#272626"));
                 btnStartAndPause.setTextColor(Color.parseColor("#737473"));
+                if (!isBreak)
+                {
+                    workSession++;
+                }
+                else
+                {
+                    isBreak = true;
+                }
             }
         }.start() ;
         isTimerRunning = true;
@@ -84,7 +121,6 @@ public class Timer implements TimerCalls{
     @Override
     public void resetTimer() {
         countDownTimer.cancel();
-        timeInMilliSeconds = 0;
         isTimerRunning = false;
         isFirstRun = true;
         txtTimer.setText("00:00:00");
