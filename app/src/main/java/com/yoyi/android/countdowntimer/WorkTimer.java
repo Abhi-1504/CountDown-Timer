@@ -43,7 +43,15 @@ public class WorkTimer extends Timer
         else {
             return 1;
         }
-        txtSessionName.setText(sessionName.get(workSession));
+        try
+        {
+            txtSessionName.setText(sessionName.get(workSession));
+        }
+        catch (Exception e)
+        {
+            txtSessionName.setText("Unnamed");
+        }
+
         if (!isBreak)
         {
             txtSessionName.setVisibility(View.VISIBLE);
