@@ -123,14 +123,14 @@ public class WorkTimer extends Timer
 
     public void setUpNext()
     {
-        txtSessionName.setVisibility(View.VISIBLE);
-        txtMessage.setText("Start your work");
-        try {
-            txtSessionName.setText("Up next: " +sessionName.get(workSession));
-        }
-        catch (Exception e)
-        {
-            txtSessionName.setText("Unnamed");
+        if (!isBreak) {
+            txtSessionName.setVisibility(View.VISIBLE);
+            txtMessage.setText("Start your work");
+            try {
+                txtSessionName.setText("Up next: " + sessionName.get(workSession));
+            } catch (Exception e) {
+                txtSessionName.setText("Unnamed");
+            }
         }
     }
 
@@ -165,4 +165,10 @@ public class WorkTimer extends Timer
         }
     }
 
+    @Override
+    public void Reset() {
+        super.Reset();
+        sessionName.clear();
+        setUpNext();
+    }
 }

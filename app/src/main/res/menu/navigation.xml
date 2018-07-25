@@ -9,4 +9,9 @@
         android:id="@+id/Categories"
         android:title="Categories">
     </item>
+
+    <item
+        android:id="@+id/ResetTimer"
+        android:title="Reset">
+    </item>
 </menu>

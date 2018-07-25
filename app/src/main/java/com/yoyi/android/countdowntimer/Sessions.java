@@ -1,9 +1,11 @@
 package com.yoyi.android.countdowntimer;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import static com.yoyi.android.countdowntimer.MainActivity.mTimer;
+import static com.yoyi.android.countdowntimer.MainActivity.pref;
+import static com.yoyi.android.countdowntimer.MainActivity.sessionName;
 
 public class Sessions extends AppCompatActivity {
 
@@ -19,6 +23,8 @@ public class Sessions extends AppCompatActivity {
     private String buffer;
     private int toDelete;
     static ArrayAdapter<String> adapter;
+    SharedPreferences.Editor editor = pref.edit();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +36,7 @@ public class Sessions extends AppCompatActivity {
 
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_expandable_list_item_1, MainActivity.sName);
+                android.R.layout.simple_expandable_list_item_1, MainActivity.sessionName);
 
         listView.setAdapter(adapter);
 
@@ -55,7 +61,20 @@ public class Sessions extends AppCompatActivity {
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        MainActivity.sName.remove(toDelete);
+                        MainActivity.sessionName.remove(toDelete);
+
+                        editor.clear();
+                        editor.commit();
+
+                        for (int j = 0; j < sessionName.size(); j++)
+                        {
+                            editor.putString(Integer.toString(j), sessionName.get(j));
+                        }
+                        editor.putInt("numberOfSessions", sessionName.size());
+                        editor.apply();
+                        editor.commit();
+
+
                         adapter.notifyDataSetChanged();
                     }
                 })
@@ -71,7 +90,21 @@ public class Sessions extends AppCompatActivity {
 
         if (!(buffer.matches("")))
         {
-            MainActivity.sName.add(buffer);
+            editTextInput.setText("");
+            sessionName.add(buffer);
+            for (int i = 0; i < sessionName.size(); i++)
+            {
+                editor.putString(Integer.toString(i), sessionName.get(i));
+            }
+            editor.putInt("numberOfSessions", sessionName.size());
+            editor.apply();
+            editor.commit();
+
+            for(int j = 0; j <pref.getInt("numberOfSessions",0); j++)
+            {
+                Log.e( "Add item: ", pref.getString(Integer.toString(j),null));
+            }
+
             listView.setAdapter(adapter);
             listView.post(new Runnable() {
                 @Override

@@ -1,18 +1,19 @@
 package com.yoyi.android.countdowntimer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,14 +31,20 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout rlBackground;
     private MediaPlayer mp;
     static WorkTimer mTimer;
-    public static ArrayList<String> sName = new ArrayList<>();
+    public static ArrayList<String> sessionName = new ArrayList<>();
 
     private TextView next1, next2, next3;
+
+    static SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getSharedPreferences(getPackageName()+"Test3", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
 
         // Assigning views
         llUserInput = findViewById(R.id.llUserInput);
@@ -67,14 +74,45 @@ public class MainActivity extends AppCompatActivity {
         reset.setTextColor(Color.parseColor("#737473"));
 
 
+        if (false)
+        {
+            editor.clear();
+            editor.commit();
+        }
+
         mTimer = new WorkTimer();
 
+        Log.e( "onCreate: ", String.valueOf(pref.getInt("workSession",0)));
+        Log.e( "onCreate: ", String.valueOf(pref.getInt("sessionCompleted",0)));
+        Log.e( "onCreate: ", String.valueOf(pref.getInt("numberOfSessions",0)));
 
-        //sName.add("Udemy");
-      //  sName.add("Class");
+        for(int j = 0; j <pref.getInt("numberOfSessions",0); j++)
+        {
+            Log.e( "run:1 ", pref.getString(Integer.toString(j),null));
+        }
+
+        for(int j = 0; j <pref.getInt("numberOfSessions",0); j++)
+        {
+            sessionName.add(pref.getString(Integer.toString(j),null));
+        }
 
 
-        mTimer.setList(sName);
+        for (int i = 0; i < sessionName.size(); i++)
+        {
+            editor.putString(Integer.toString(i), sessionName.get(i));
+        }
+        editor.putInt("numberOfSessions", sessionName.size());
+        editor.apply();
+        editor.commit();
+
+
+        for(int j = 0; j <pref.getInt("numberOfSessions",0); j++)
+        {
+            Log.e( "run:2 ", pref.getString(Integer.toString(j),null));
+        }
+
+
+        mTimer.setList(sessionName);
         minute.setText(mTimer.getPomodoroSessionNumber());
         message.setText("Start your work");
         mTimer.setTimer(mp, minute, timer, message, startAndPause, llUserInput, llChronometer,
@@ -97,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         try
         {
-            txtSessionName.setText(sName.get(mTimer.workSession));
+            txtSessionName.setText(sessionName.get(mTimer.workSession));
         }
         catch (Exception e)
         {
@@ -125,10 +163,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.Categories:
                 Toast.makeText(this, "This functionality is yet to come", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.ResetTimer:
                 mTimer.Reset();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
