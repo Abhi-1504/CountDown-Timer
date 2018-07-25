@@ -19,9 +19,19 @@ public class Timer implements TimerCalls{
     protected MediaPlayer mp;
     protected TextView txtTimer, etxtMinutes;
     protected Button btnStartAndPause;
-    protected int workSession = 0;
-    protected boolean isBreak = false;
+    protected int workSession;
+    protected int sessionCompleted;
+    protected boolean isBreak;
     protected String pomodoroSessionNumber;
+
+
+    public void Reset()
+    {
+        workSession = 0;
+        sessionCompleted = 0;
+        isBreak = false;
+        setWork();
+    }
 
     protected String getPomodoroSessionNumber()
     {
@@ -61,8 +71,6 @@ public class Timer implements TimerCalls{
     @Override
     public int startOrPauseTimer()
     {
-        Log.e("Timer: Pomodoro", Integer.toString(workSession) );
-
         if (!isBreak)
         {
             setWork();
@@ -100,7 +108,6 @@ public class Timer implements TimerCalls{
 
             @Override
             public void onFinish() {
-                txtTimer.setText("DONE!");
                 btnStartAndPause.setEnabled(false);
                 isTimerRunning = false;
                 mp.start();
@@ -108,12 +115,22 @@ public class Timer implements TimerCalls{
                 btnStartAndPause.setTextColor(Color.parseColor("#737473"));
                 if (!isBreak)
                 {
+                    try
+                    {
+                        MainActivity.sName.set(workSession, MainActivity.sName.get(workSession)+" [Completed]");
+                        Sessions.adapter.notifyDataSetChanged();
+                    }
+                    catch (Exception e)
+                    {
+                        MainActivity.sName.add("Unnamed [Completed]");
+                    }
                     workSession++;
                     isBreak = true;
                     etxtMinutes.setText(getPomodoroSessionNumber()+" Completed");
                 }
                 else
                 {
+                    sessionCompleted++;
                     isBreak = false;
                     etxtMinutes.setText(getPomodoroSessionNumber());
                 }
@@ -137,7 +154,7 @@ public class Timer implements TimerCalls{
         }
         isTimerRunning = false;
         isFirstRun = true;
-        txtTimer.setText("00:00:00");
+   //     txtTimer.setText("00:00:00");
     }
     //
 }
