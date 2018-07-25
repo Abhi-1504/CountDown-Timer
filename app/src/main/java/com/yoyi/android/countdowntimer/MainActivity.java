@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,13 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         reset.setBackgroundColor(Color.parseColor("#272626"));
         reset.setTextColor(Color.parseColor("#737473"));
-
-
-        if (false)
-        {
-            editor.clear();
-            editor.commit();
-        }
+        
 
         mTimer = new WorkTimer();
 

@@ -36,12 +36,13 @@ public class Timer implements TimerCalls{
         }
         catch (Exception e)
         { }
-
     }
 
 
     public void Reset()
     {
+        editor.clear();
+        editor.commit();
         workSession = 0;
         sessionCompleted = 0;
         isBreak = false;
