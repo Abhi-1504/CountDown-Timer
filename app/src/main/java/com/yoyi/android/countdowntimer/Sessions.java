@@ -5,16 +5,18 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
 import static com.yoyi.android.countdowntimer.MainActivity.mTimer;
 import static com.yoyi.android.countdowntimer.MainActivity.pref;
 import static com.yoyi.android.countdowntimer.MainActivity.sessionName;
+import static com.yoyi.android.countdowntimer.MainActivity.setstr;
+import static com.yoyi.android.countdowntimer.MainActivity.stats;
 
 public class Sessions extends AppCompatActivity {
 
@@ -23,7 +25,8 @@ public class Sessions extends AppCompatActivity {
     private String buffer;
     private int toDelete;
     static ArrayAdapter<String> adapter;
-    SharedPreferences.Editor editor = pref.edit();
+    static SharedPreferences.Editor editor = pref.edit();
+    static SharedPreferences.Editor statsEditor = stats.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +103,6 @@ public class Sessions extends AppCompatActivity {
             editor.apply();
             editor.commit();
 
-            for(int j = 0; j <pref.getInt("numberOfSessions",0); j++)
-            {
-                Log.e( "Add item: ", pref.getString(Integer.toString(j),null));
-            }
-
             listView.setAdapter(adapter);
             listView.post(new Runnable() {
                 @Override
@@ -113,8 +111,34 @@ public class Sessions extends AppCompatActivity {
                 }
             });
             mTimer.setUpNext();
+
+            buffer = buffer.toLowerCase();
+
+            String m;
+            try
+            {
+                m = stats.getStringSet("7287nx", null).toString();
+            }
+            catch (Exception e)
+            {
+                m = "";
+            }
+            if (!(m.matches("")))
+            {
+                for (String name: stats.getStringSet("7287nx",null))
+                {
+                    setstr.add(name);
+                }
+                setstr.add(buffer);
+            }
+            else
+            {
+                setstr.add(buffer);
+            }
+            statsEditor.putInt(buffer, 0);
+            statsEditor.putStringSet("7287nx",setstr);
+            statsEditor.commit();
+
         }
     }
-
-
 }

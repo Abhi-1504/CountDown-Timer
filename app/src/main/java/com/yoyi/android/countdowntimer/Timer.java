@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 import static com.yoyi.android.countdowntimer.MainActivity.pref;
 import static com.yoyi.android.countdowntimer.MainActivity.sessionName;
+import static com.yoyi.android.countdowntimer.MainActivity.stats;
 
 public class Timer implements TimerCalls{
     private static final String FORMAT = "%02d:%02d:%02d";
@@ -26,7 +28,7 @@ public class Timer implements TimerCalls{
     protected boolean isBreak;
     protected String pomodoroSessionNumber;
     private SharedPreferences.Editor editor = pref.edit();
-
+    private int tempSessionNo;
     public Timer()
     {
         try
@@ -134,6 +136,18 @@ public class Timer implements TimerCalls{
                 {
                     try
                     {
+                        tempSessionNo = stats.getInt(sessionName.get(workSession).toLowerCase(), 0);
+                        Sessions.statsEditor.putInt(sessionName.get(workSession).toLowerCase() , tempSessionNo+1);
+                        Sessions.statsEditor.commit();
+                        tempSessionNo = stats.getInt(sessionName.get(workSession).toLowerCase(), 0);
+                        Log.e("onFinish: ", Integer.toString(tempSessionNo));
+                    }
+                    catch (Exception e)
+                    { }
+
+
+                    try
+                    {
                         MainActivity.sessionName.set(workSession, MainActivity.sessionName.get(workSession)+" [Completed]");
                         Sessions.adapter.notifyDataSetChanged();
                     }
@@ -141,6 +155,8 @@ public class Timer implements TimerCalls{
                     {
                         MainActivity.sessionName.add("Unnamed [Completed]");
                     }
+
+
                     isBreak = true;
                     etxtMinutes.setText(getPomodoroSessionNumber()+" Completed");
                     workSession++;

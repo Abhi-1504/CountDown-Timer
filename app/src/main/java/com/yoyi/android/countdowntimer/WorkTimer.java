@@ -56,12 +56,16 @@ public class WorkTimer extends Timer
         if (!isBreak)
         {
             txtSessionName.setVisibility(View.VISIBLE);
+            txtMessage.setText("Work");
+        }
+        else
+        {
+            txtMessage.setText("Break");
         }
 
         llUserInput.setVisibility(View.GONE);
         llChronometer.setVisibility(View.VISIBLE);
         btnReset.setEnabled(true);
-        txtMessage.setText("Countdown");
         btnReset.setBackgroundColor(Color.parseColor("#1c1c1c"));
         btnReset.setTextColor(Color.parseColor("#b8e3be"));
         setUpcoming();

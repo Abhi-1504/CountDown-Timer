@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
     static WorkTimer mTimer;
     public static ArrayList<String> sessionName = new ArrayList<>();
+    public static ArraySet<String> setstr = new ArraySet<>();
 
     private TextView next1, next2, next3;
 
     static SharedPreferences pref;
+    static SharedPreferences stats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pref = getSharedPreferences(getPackageName()+"Test3", Context.MODE_PRIVATE);
+        stats = getSharedPreferences(getPackageName()+"stats", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
 
@@ -71,9 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
         reset.setBackgroundColor(Color.parseColor("#272626"));
         reset.setTextColor(Color.parseColor("#737473"));
-        
+
+        if (false)
+        {
+            editor.clear();
+            editor.commit();
+            Sessions.statsEditor.clear();
+            Sessions.statsEditor.commit();
+        }
 
         mTimer = new WorkTimer();
+
 
         Log.e( "onCreate: ", String.valueOf(pref.getInt("workSession",0)));
         Log.e( "onCreate: ", String.valueOf(pref.getInt("sessionCompleted",0)));
@@ -155,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentSessions);
                 break;
             case R.id.Categories:
-                Toast.makeText(this, "This functionality is yet to come", Toast.LENGTH_LONG).show();
+                Intent intentStats = new Intent(this, Stats.class);
+                startActivity(intentStats);
                 break;
             case R.id.ResetTimer:
                 mTimer.Reset();
