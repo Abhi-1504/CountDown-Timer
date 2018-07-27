@@ -173,5 +173,6 @@ public class WorkTimer extends Timer
         super.Reset();
         sessionName.clear();
         setUpNext();
+        setUpcoming();
     }
 }

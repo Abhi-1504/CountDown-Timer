@@ -138,7 +138,7 @@ public class Sessions extends AppCompatActivity {
             statsEditor.putInt(buffer, 0);
             statsEditor.putStringSet("7287nx",setstr);
             statsEditor.commit();
-
+            mTimer.setUpcoming();
         }
     }
 }
