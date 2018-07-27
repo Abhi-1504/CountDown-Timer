@@ -173,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ResetTimer:
                 mTimer.Reset();
                 break;
+            case R.id.Authors:
+                Toast.makeText(this, "Neel: neelratan@live.com \nAbhilash: abhilash.raj.me@gmail.com", Toast.LENGTH_LONG).show();
+
         }
         return super.onOptionsItemSelected(item);
     }

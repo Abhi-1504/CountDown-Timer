@@ -14,4 +14,9 @@
         android:id="@+id/ResetTimer"
         android:title="Reset">
     </item>
+
+    <item
+        android:id="@+id/Authors"
+        android:title="Authors">
+    </item>
 </menu>
