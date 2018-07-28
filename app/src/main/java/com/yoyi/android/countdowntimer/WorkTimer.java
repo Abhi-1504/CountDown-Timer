@@ -34,11 +34,13 @@ public class WorkTimer extends Timer
         {
             btnStartAndPause.setText("Start");
           //  rlBackground.setBackgroundColor(Color.parseColor("#5fc497"));
+            btnReset.setText("Reset");
         }
         else if (isPause==0)
         {
             btnStartAndPause.setText("Pause");
           //  rlBackground.setBackgroundColor(Color.parseColor("#87d9b5"));
+            btnReset.setText("Done");
         }
         else {
             return 1;
